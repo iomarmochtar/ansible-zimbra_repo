@@ -1,0 +1,8 @@
+---
+- name: Stat pip
+  stat: path="{{ pip }}"
+  register: s_pip
+
+- name: Stat aws
+  stat: path="{{ aws }}"
+  register: s_aws

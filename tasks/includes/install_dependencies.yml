@@ -1,0 +1,22 @@
+---
+- name: Install EPEL repo
+  yum: name=epel-release state=present
+
+- name: Install required packages
+  yum: name="{{ packages }}" state=present
+  vars:
+    packages:
+      - nginx
+      - python-virtualenv
+
+- name: "Create virtenv in {{ path }}"
+  command: "/usr/bin/virtualenv {{ path }}"
+  when: not s_pip.stat.exists
+
+- name: Make use the latest version of pip
+  command: "{{ pip }} install --upgrade pip"
+  when: not s_pip.stat.exists
+
+- name: Install the aws cli
+  command: "{{ pip }} install awscli"
+  when: not s_aws.stat.exists

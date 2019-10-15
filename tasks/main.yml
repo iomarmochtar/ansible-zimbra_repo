@@ -1,0 +1,31 @@
+---
+- import_tasks: includes/pre_execution.yml
+
+- import_tasks: includes/stats.yml
+
+- import_tasks: includes/install_dependencies.yml
+
+- name: Create repo path
+  file: path="{{ repo_dir }}" state=directory recurse=yes
+
+- name: Sync repo data, it may require a lot of time
+  command: "{{ aws }} s3 sync {{ bucket }} {{ repo_dir }}/{{ sub_bucket }} --no-sign-request --delete"
+
+- name: Set nginx configuration
+  template:
+    src: "./templates/zimbra_repo.conf.j2"
+    dest: "{{ nginx_repo_conf }}"
+
+- import_tasks: includes/download_zimbra_installer.yml
+  when: zimbra_installer_url is defined
+
+- name: Set repo dir ownership
+  file:
+    dest: "{{ repo_dir }}"
+    owner: nginx
+    group: nginx
+    recurse: yes
+  notify: Restart nginx
+
+- name: Notify
+  debug: msg="Done, you can access repository {{ repo_version }} ({{ repo_package }}) by port {{ repo_access_port }}"

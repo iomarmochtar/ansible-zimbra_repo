@@ -1,0 +1,7 @@
+---
+- name: Check required variables
+  fail: msg="Variable '{{ item }}' is required"
+  when: not vars[item]
+  with_items:
+    - repo_version
+    - repo_package

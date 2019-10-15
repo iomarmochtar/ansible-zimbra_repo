@@ -1,0 +1,22 @@
+galaxy_info:
+  author: Imam Omar Mochtar
+  description: Zimbra Local Repository Setup
+  company: your company (optional)
+  # issue_tracker_url: http://example.com/issue/tracker
+  license: BSD
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Centos
+      versions:
+        - 7
+
+    - name: Redhat
+      versions:
+        - 7
+
+  galaxy_tags:
+    - zimbra
+    - local_repo
+
+dependencies: []

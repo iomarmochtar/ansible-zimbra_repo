@@ -1,0 +1,17 @@
+---
+path: /opt/zimbra_repo
+repo_dir: "{{ path }}/data"
+installer_dir: "{{ repo_dir }}/installer"
+pybin_dir: "{{ path }}/bin"
+pip: "{{ pybin_dir }}/pip"
+aws: "{{ pybin_dir }}/aws"
+repo_version:
+repo_package:
+zimbra_installer_url:
+download_validate_certs: no
+#repo_version: 8815
+#repo_package: rpm
+sub_bucket: "{{ repo_package }}/{{ repo_version }}"
+bucket: "s3://repo.zimbra.com/{{ sub_bucket }}"
+nginx_repo_conf: /etc/nginx/conf.d/zimbra_repo.conf
+repo_access_port: 8989

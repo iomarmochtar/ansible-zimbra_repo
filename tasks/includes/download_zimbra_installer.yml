@@ -1,0 +1,12 @@
+---
+- name: Make sure directory is exists
+  file:
+    path: "{{ installer_dir }}"
+    state: directory
+    recurse: yes
+
+- name: "Download zimbra package {{ zimbra_installer_url}}"
+  get_url:
+    url: "{{ zimbra_installer_url }}"
+    dest: "{{ installer_dir }}/{{ zimbra_installer_url|basename }}"
+    validate_certs: "{{ download_validate_certs | bool }}"
