@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: zimbra_repo
   author: Imam Omar Mochtar
   description: Zimbra Local Repository Setup
   license: BSD
