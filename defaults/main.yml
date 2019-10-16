@@ -1,17 +1,26 @@
 ---
+# required
+#repo_version: 8815
+#repo_package: rpm
+repo_version:
+repo_package:
+
+zimbra_installer_url:
 path: /opt/zimbra_repo
 repo_dir: "{{ path }}/data"
 installer_dir: "{{ repo_dir }}/installer"
 pybin_dir: "{{ path }}/bin"
 pip: "{{ pybin_dir }}/pip"
 aws: "{{ pybin_dir }}/aws"
-repo_version:
-repo_package:
-zimbra_installer_url:
 download_validate_certs: no
-#repo_version: 8815
-#repo_package: rpm
+
+# aws main repo to sync
+s3: "s3://repo.zimbra.com"
 sub_bucket: "{{ repo_package }}/{{ repo_version }}"
-bucket: "s3://repo.zimbra.com/{{ sub_bucket }}"
+sub_base_bucket: "{{ repo_package }}/87"
+bucket: "{{ s3 }}/{{ sub_bucket }}"
+base_bucket: "{{ s3 }}/{{ sub_base_bucket }}"
+
+# related to nginx
 nginx_repo_conf: /etc/nginx/conf.d/zimbra_repo.conf
 repo_access_port: 8989

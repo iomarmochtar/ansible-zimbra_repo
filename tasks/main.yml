@@ -8,6 +8,9 @@
 - name: Create repo path
   file: path="{{ repo_dir }}" state=directory recurse=yes
 
+- name: Sync base repo data, it may require a lot of time
+  command: "{{ aws }} s3 sync {{ base_bucket }} {{ repo_dir }}/{{ sub_base_bucket }} --no-sign-request --delete"
+
 - name: Sync repo data, it may require a lot of time
   command: "{{ aws }} s3 sync {{ bucket }} {{ repo_dir }}/{{ sub_bucket }} --no-sign-request --delete"
 
